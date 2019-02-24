@@ -5,6 +5,11 @@
  */
 package consumerestalimentos;
 
+import Consumes.ConsumesAlimento;
+import java.util.List;
+import model.Alimento;
+import util.HttpRequest;
+
 /**
  *
  * @author William
@@ -15,7 +20,15 @@ public class ConsumeRestAlimentos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        ConsumesAlimento consumesAlimento = new ConsumesAlimento();
+       
+        List<Alimento> alimentos = consumesAlimento.GetAlimentos();
+        
+        for(Alimento a :  alimentos ){
+            System.out.println("Alimento " +  a.getNome() + " calorias " + a.getCalorias() );
+    }
+        
     }
     
 }

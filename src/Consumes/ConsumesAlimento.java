@@ -29,6 +29,8 @@ public class ConsumesAlimento {
         
         Gson g = new Gson();
         
+        
+        
     Alimento[] alimentoArray =  g.fromJson(json, Alimento[].class);
     
     //List<Alimento> alimentos = Arrays.asList(alimentoArray);
@@ -36,6 +38,38 @@ public class ConsumesAlimento {
     
     return alimentos;
     }
+    
+    public void PostAlimento(Alimento alimento){
+        HttpRequest httpRequest = new HttpRequest();
+        Gson g = new Gson();
+        String json = g.toJson(alimento);
+        System.out.println(json);
+        httpRequest.sendPost(url, json);
+        
+        
+        
+        
+    }
+    
+     public void PutAlimento(Alimento alimento){
+        HttpRequest httpRequest = new HttpRequest();
+        Gson g = new Gson();
+        String json = g.toJson(alimento);
+        System.out.println(json);
+        httpRequest.sendPut(url + "/" + alimento.getIdAlimento(), json);
+        
+        
+        
+        
+    }
+    
+    public String DeleteAlimento(int id){
+        HttpRequest httpRequest = new HttpRequest();
+        System.out.println(url +"/"+ id);
+     return  httpRequest.sendDelete(url + "/" + id);
+        
+    }
+    
         
     
     

@@ -10,19 +10,19 @@ package model;
  * @author William
  */
 public class Alimento {
- private int IdAlimento;
+ private int idAlimento;
  private String nome;
 private int calorias;
-private double gorduras;
+private double gordura;
 private double carboidratos;
 private String porcao;
 
     public int getIdAlimento() {
-        return IdAlimento;
+        return idAlimento;
     }
 
-    public void setIdAlimento(int IdAlimento) {
-        this.IdAlimento = IdAlimento;
+    public void setIdAlimento(int idAlimento) {
+        this.idAlimento = idAlimento;
     }
 
     public String getNome() {
@@ -41,12 +41,12 @@ private String porcao;
         this.calorias = calorias;
     }
 
-    public double getGorduras() {
-        return gorduras;
+    public double getGordura() {
+        return gordura;
     }
 
-    public void setGorduras(double gorduras) {
-        this.gorduras = gorduras;
+    public void setGordura(double gordura) {
+        this.gordura = gordura;
     }
 
     public double getCarboidratos() {
@@ -65,6 +65,8 @@ private String porcao;
         this.porcao = porcao;
     }
 
+    
+   
 
 
     

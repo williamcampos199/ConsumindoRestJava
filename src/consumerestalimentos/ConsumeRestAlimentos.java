@@ -24,14 +24,14 @@ public class ConsumeRestAlimentos {
         ConsumesAlimento consumesAlimento = new ConsumesAlimento();
        
         Alimento alimento = new Alimento();
-        alimento.setIdAlimento(5);
+        //alimento.setIdAlimento(5);
         alimento.setNome("laranja");
         alimento.setCalorias(200);
         alimento.setGordura(1.9);
         alimento.setCarboidratos(20);
         alimento.setPorcao("100g");
         
-        consumesAlimento.PutAlimento(alimento);
+        consumesAlimento.PostAlimento(alimento);
         
         //String retorno = consumesAlimento.DeleteAlimento(6) ;
         

@@ -7,6 +7,8 @@ package view;
 
 import Consumes.ConsumesAlimento;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Alimento;
 
@@ -15,8 +17,9 @@ import model.Alimento;
  * @author William
  */
 public class JFrameAlimentos extends javax.swing.JFrame {
-    List<Alimento> alimentos = null;
+    List<Alimento> alimentos ;
     Alimento alimentoEditado;
+    ConsumesAlimento consumesAlimento;
     
     /**
      * Creates new form JFrameAlimentos
@@ -30,7 +33,7 @@ public class JFrameAlimentos extends javax.swing.JFrame {
     
     private void showDados(){
      try{       
-       ConsumesAlimento consumesAlimento = new ConsumesAlimento();
+       consumesAlimento = new ConsumesAlimento();
        alimentos = consumesAlimento.GetAlimentos();
        DefaultTableModel model = new DefaultTableModel();
        model.addColumn("id");
@@ -104,8 +107,18 @@ public class JFrameAlimentos extends javax.swing.JFrame {
         });
 
         jButtonEditar.setText("Alterar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         JButtonExcluir.setText("Excluir");
+        JButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,7 +153,8 @@ public class JFrameAlimentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        
+        JDialogCadastrarAlimentos cadastrarAlimentos = new JDialogCadastrarAlimentos(this,true);
+        cadastrarAlimentos.setVisible(true);
         
         
     }//GEN-LAST:event_jButtonNovoActionPerformed
@@ -151,13 +165,61 @@ public class JFrameAlimentos extends javax.swing.JFrame {
            System.out.println("Item Selecionado" + jTableAlimentos.getSelectedRow() );
            
            if(alimentos != null){
-            alimentoEditado = alimentos.get(linhaTabela);    
+            
+            alimentoEditado = alimentos.get(linhaTabela);   
+            
+            jButtonNovo.setEnabled(false);
            }
+           
+           
           
        }
         
         
     }//GEN-LAST:event_jTableAlimentosMouseClicked
+
+    private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        
+        if(alimentoEditado != null){
+          int resposta =  JOptionPane.showConfirmDialog(this, "Deseja excluir o alimento","Exclusão de Alimento", JOptionPane.YES_NO_OPTION);
+          if(resposta == JOptionPane.YES_OPTION){
+              consumesAlimento.DeleteAlimento(alimentoEditado.getIdAlimento());
+              showDados();
+              alimentoEditado = null;
+              
+          }else{
+              alimentoEditado = null;
+              jTableAlimentos.clearSelection();
+              
+          }
+            jButtonNovo.setEnabled(true); 
+            
+           
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Por favor selecione um item "
+                    + "para ser excluido", "Exclusão de Alimento",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_JButtonExcluirActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        // TODO add your handling code here:
+        if(alimentoEditado != null){
+        JDialogCadastrarAlimentos cadastrarAlimentos = new JDialogCadastrarAlimentos(this,true,alimentoEditado);
+        cadastrarAlimentos.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Por favor selecione um item "
+                    + "para ser Editado", "Edição de Alimento",JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+        
+        jButtonNovo.setEnabled(true); 
+        showDados();
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     /**
      * @param args the command line arguments
